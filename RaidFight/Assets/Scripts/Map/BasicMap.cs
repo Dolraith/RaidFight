@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,7 +46,7 @@ public class BasicMap : _MapInterface {
             foundLocation = false;
             do
             {
-                randIndex = Random.Range(0, bossSpawnCount);
+                randIndex = UnityEngine.Random.Range(0, bossSpawnCount);
                 RectTransform curTransform = bossSpawns[randIndex];
                 if (!resultList.Contains(curTransform))
                 {
@@ -83,7 +84,7 @@ public class BasicMap : _MapInterface {
             foundLocation = false;
             do
             {
-                randIndex = Random.Range(0, heroSpawnCount);
+                randIndex = UnityEngine.Random.Range(0, heroSpawnCount);
                 RectTransform curTransform = heroSpawns[randIndex];
                 if (!resultList.Contains(curTransform))
                 {
@@ -94,5 +95,21 @@ public class BasicMap : _MapInterface {
         }
 
         return resultList;
+    }
+
+    public override float GetDistance(RectTransform a, RectTransform b)
+    {
+        Log.Info(Log.CATEGORY.BATTLE_RUNTIME, a.position + " - " + b.position + " = " + Vector2.Distance(a.position, b.position));
+        return Vector2.Distance(a.anchoredPosition, b.anchoredPosition);
+    }
+
+    public override Vector2 MoveTowards(RectTransform from, RectTransform to, float speed)
+    {
+        return Vector2.MoveTowards(from.position, to.position, speed);
+    }
+
+    public override void TimeTick()
+    {
+        //This is a static map.
     }
 }

@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\BattleControl.cs" />
     <Compile Include="Assets\Scripts\Boss\BasicBoss.cs" />
     <Compile Include="Assets\Scripts\Boss\_BossInterface.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Hero\BasicHero.cs" />
     <Compile Include="Assets\Scripts\Hero\_HeroInterface.cs" />
     <Compile Include="Assets\Scripts\Log.cs" />

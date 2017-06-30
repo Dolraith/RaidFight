@@ -9,6 +9,8 @@ public class BattleControl : MonoBehaviour {
     private _MapInterface map;
     [SerializeField]
     private _BossInterface boss;
+    [SerializeField]
+    private HealthBar bossHealthBar;
 
     //To be moved out to the pre-battle UI deciding it is ready.
     private void Start()
@@ -43,6 +45,8 @@ public class BattleControl : MonoBehaviour {
         boss = Instantiate(boss) as _BossInterface;
         boss.transform.SetParent(map.transform);
         boss.GetComponent<RectTransform>().position = map.GetBossSpawnPoints(1)[0].position;
+        boss.LinkUIBox(bossHealthBar.GetComponent<RectTransform>());
+        boss.Init();
     }
 
     private void SpawnHeroes()
@@ -53,11 +57,23 @@ public class BattleControl : MonoBehaviour {
             party[i] = Instantiate(party[i]) as _HeroInterface;
             party[i].transform.SetParent(map.transform);
             party[i].GetComponent<RectTransform>().position = positions[i].position;
+            party[i].Init();
         }
     }
 
     private void SpawnMap()
     {
 
+    }
+
+    private void Update()
+    {
+        _MapInterface.Instance.TimeTick();
+        boss.TimeTick();
+        
+        for(int i=0; i < party.Count; i++)
+        {
+            party[i].GetComponent<_HeroInterface>().TimeTick();
+        }
     }
 }
